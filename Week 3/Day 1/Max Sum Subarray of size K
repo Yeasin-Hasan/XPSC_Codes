@@ -1,0 +1,49 @@
+class Solution {
+  public:
+    long long maximumSumSubarray(vector<int>& arr, int k) {
+        int l = arr.size();
+        vector < int > v(l);
+        v[0] = arr[0];
+        for (int i = 1; i < l; i++) {
+            v[i] = arr[i] + v[i-1];
+        }
+        int i = 0, j = k-1;
+        long long int mx = 0;
+        long long int ans = 0;
+        while (j < l) {
+            if (i == 0) ans = v[j];
+            else ans = v[j] - v[i-1];
+            if (ans > mx) mx = ans;
+            i++;
+            j++;
+        }
+        return mx;
+    }
+};
+
+//{ Driver Code Starts.
+int main() {
+    string ts;
+    getline(cin, ts);
+    int t = stoi(ts);
+    while (t--) {
+
+        vector<int> arr;
+        string input;
+        getline(cin, input);
+        stringstream ss(input);
+        int number;
+        while (ss >> number) {
+            arr.push_back(number);
+        }
+        string ks;
+        getline(cin, ks);
+        int k = stoi(ks);
+        Solution ob;
+        long long ans = ob.maximumSumSubarray(arr, k);
+        cout << ans << "\n";
+        cout << "~" << endl;
+    }
+    return 0;
+}
+// } Driver Code Ends
